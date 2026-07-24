@@ -3,6 +3,7 @@ import { Section } from "@/components/common/section";
 import { SectionHeading } from "@/components/common/section-heading";
 import { Reveal } from "@/components/common/reveal";
 import { TiltCard } from "@/components/common/tilt-card";
+import { Avatar } from "@/components/common/avatar";
 import { team } from "@/lib/content";
 
 export function Team() {
@@ -22,9 +23,11 @@ export function Team() {
               delay={(index % 3) * 0.06}
             >
               <TiltCard className="surface-gradient flex h-full items-center gap-4 rounded-2xl border border-border p-6">
-                <span className="brand-gradient relative z-10 inline-flex size-14 items-center justify-center rounded-full text-base font-semibold text-white">
-                  {member.initials}
-                </span>
+                <Avatar
+                  initials={member.initials}
+                  size="lg"
+                  className="relative z-10"
+                />
                 <div className="relative z-10">
                   <p className="font-medium tracking-tight">{member.name}</p>
                   <p className="text-sm text-muted">{member.role}</p>

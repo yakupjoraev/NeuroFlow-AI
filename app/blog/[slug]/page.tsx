@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { Container } from "@/components/common/container";
 import { Reveal } from "@/components/common/reveal";
 import { Badge } from "@/components/ui/badge";
+import { Avatar } from "@/components/common/avatar";
 import { NewsletterForm } from "@/components/common/newsletter-form";
 import { JsonLd } from "@/components/common/json-ld";
 import { blogPosts, formatDate, getPostBySlug } from "@/lib/blog";
@@ -76,12 +77,12 @@ export default async function BlogPostPage({ params }: PageProps) {
           </Reveal>
 
           <Reveal className="mt-6 flex items-center gap-3 border-b border-border pb-8">
-            <span className="brand-gradient inline-flex size-10 items-center justify-center rounded-full text-sm font-semibold text-white">
-              {post.author
+            <Avatar
+              initials={post.author
                 .split(" ")
                 .map((part) => part[0])
                 .join("")}
-            </span>
+            />
             <span className="text-sm">
               <span className="font-medium">{post.author}</span>
               <span className="block text-muted">NeuroFlow AI</span>

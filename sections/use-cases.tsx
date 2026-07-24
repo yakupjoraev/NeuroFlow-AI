@@ -3,6 +3,7 @@ import { Section } from "@/components/common/section";
 import { SectionHeading } from "@/components/common/section-heading";
 import { Reveal } from "@/components/common/reveal";
 import { TiltCard } from "@/components/common/tilt-card";
+import { IconBadge } from "@/components/common/icon-badge";
 import { useCases } from "@/lib/content";
 
 export function UseCases() {
@@ -28,9 +29,7 @@ export function UseCases() {
               <Reveal key={useCase.title} className="h-full" delay={index * 0.06}>
                 <TiltCard className="surface-gradient flex h-full flex-col rounded-2xl border border-border p-6">
                   <div className="relative z-10 flex h-full flex-col">
-                    <span className="inline-flex size-11 items-center justify-center rounded-xl border border-border bg-surface text-primary">
-                      <Icon className="size-5" />
-                    </span>
+                    <IconBadge icon={Icon} />
                     <h3 className="mt-5 text-lg font-semibold tracking-tight">
                       {useCase.title}
                     </h3>

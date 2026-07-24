@@ -4,6 +4,7 @@ import { Section } from "@/components/common/section";
 import { SectionHeading } from "@/components/common/section-heading";
 import { Reveal } from "@/components/common/reveal";
 import { TiltCard } from "@/components/common/tilt-card";
+import { IconBadge } from "@/components/common/icon-badge";
 import { bentoFeatures } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -30,9 +31,7 @@ function FeatureCard({
       )}
     >
       <div className="relative z-10 flex h-full flex-col">
-        <span className="inline-flex size-11 items-center justify-center rounded-xl border border-border bg-surface text-primary">
-          <Icon className="size-5" />
-        </span>
+        <IconBadge icon={Icon} />
         <h3
           className={cn(
             "mt-5 font-semibold tracking-tight",

@@ -7,6 +7,8 @@ import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
 import { Container } from "@/components/common/container";
 import { Section } from "@/components/common/section";
 import { SectionHeading } from "@/components/common/section-heading";
+import { Avatar } from "@/components/common/avatar";
+import { IconButton } from "@/components/ui/icon-button";
 import { testimonials } from "@/lib/content";
 import { usePrefersReducedMotion } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
@@ -52,30 +54,37 @@ export function Testimonials() {
             }
           />
           <div className="flex gap-2">
-            <button
-              type="button"
+            <IconButton
               aria-label="Previous testimonial"
               onClick={() => emblaApi?.scrollPrev()}
-              className="inline-flex size-11 items-center justify-center rounded-full border border-border bg-surface/60 text-foreground transition-colors hover:bg-surface-2"
+              className="size-11"
             >
-              <ArrowLeft className="size-4" />
-            </button>
-            <button
-              type="button"
+              <ArrowLeft />
+            </IconButton>
+            <IconButton
               aria-label="Next testimonial"
               onClick={() => emblaApi?.scrollNext()}
-              className="inline-flex size-11 items-center justify-center rounded-full border border-border bg-surface/60 text-foreground transition-colors hover:bg-surface-2"
+              className="size-11"
             >
-              <ArrowRight className="size-4" />
-            </button>
+              <ArrowRight />
+            </IconButton>
           </div>
         </div>
 
-        <div className="mt-12 overflow-hidden" ref={emblaRef}>
+        <div
+          className="mt-12 overflow-hidden"
+          ref={emblaRef}
+          role="group"
+          aria-roledescription="carousel"
+          aria-label="Customer testimonials"
+        >
           <div className="flex gap-4">
-            {testimonials.map((testimonial) => (
+            {testimonials.map((testimonial, index) => (
               <figure
                 key={testimonial.author}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${index + 1} of ${testimonials.length}`}
                 className="surface-gradient flex min-w-0 shrink-0 grow-0 basis-[88%] flex-col rounded-2xl border border-border p-7 sm:basis-[46%] lg:basis-[31%]"
               >
                 <Quote className="size-7 text-primary/50" aria-hidden />
@@ -83,9 +92,7 @@ export function Testimonials() {
                   {testimonial.quote}
                 </blockquote>
                 <figcaption className="mt-6 flex items-center gap-3 border-t border-border pt-5">
-                  <span className="brand-gradient inline-flex size-10 items-center justify-center rounded-full text-sm font-semibold text-white">
-                    {testimonial.initials}
-                  </span>
+                  <Avatar initials={testimonial.initials} />
                   <span className="flex flex-col">
                     <span className="text-sm font-medium">
                       {testimonial.author}
@@ -100,20 +107,22 @@ export function Testimonials() {
           </div>
         </div>
 
-        <div className="mt-8 flex justify-center gap-2" role="tablist" aria-label="Testimonial navigation">
+        <div
+          className="mt-8 flex justify-center gap-2"
+          aria-label="Testimonial navigation"
+        >
           {snaps.map((_, index) => (
             <button
               key={index}
               type="button"
-              role="tab"
-              aria-selected={index === selected}
               aria-label={`Go to testimonial ${index + 1}`}
+              aria-current={index === selected ? "true" : undefined}
               onClick={() => emblaApi?.scrollTo(index)}
               className={cn(
-                "h-1.5 rounded-full transition-all duration-300",
+                "h-2.5 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                 index === selected
                   ? "w-6 bg-primary"
-                  : "w-1.5 bg-border-strong hover:bg-muted",
+                  : "w-2.5 bg-border-strong hover:bg-muted",
               )}
             />
           ))}

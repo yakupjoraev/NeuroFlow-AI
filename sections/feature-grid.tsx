@@ -2,6 +2,7 @@ import { Container } from "@/components/common/container";
 import { Section } from "@/components/common/section";
 import { SectionHeading } from "@/components/common/section-heading";
 import { Reveal } from "@/components/common/reveal";
+import { IconBadge } from "@/components/common/icon-badge";
 import { featureHighlights } from "@/lib/content";
 
 export function FeatureGrid() {
@@ -22,9 +23,10 @@ export function FeatureGrid() {
                 delay={(index % 3) * 0.06}
                 className="group bg-background p-8 transition-colors hover:bg-surface"
               >
-                <span className="inline-flex size-11 items-center justify-center rounded-xl border border-border bg-surface text-primary transition-colors group-hover:border-primary/40">
-                  <Icon className="size-5" />
-                </span>
+                <IconBadge
+                  icon={Icon}
+                  className="transition-colors group-hover:border-primary/40"
+                />
                 <h3 className="mt-5 text-lg font-semibold tracking-tight">
                   {feature.title}
                 </h3>

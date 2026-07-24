@@ -3,6 +3,7 @@ import { Mail, MapPin, MessageSquare } from "lucide-react";
 import { Container } from "@/components/common/container";
 import { Reveal } from "@/components/common/reveal";
 import { Badge } from "@/components/ui/badge";
+import { IconBadge } from "@/components/common/icon-badge";
 import { ContactForm } from "@/components/common/contact-form";
 import { createMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
@@ -67,9 +68,7 @@ export default function ContactPage() {
                     delay={index * 0.06}
                     className="flex items-start gap-4"
                   >
-                    <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl border border-border bg-surface text-primary">
-                      <Icon className="size-5" />
-                    </span>
+                    <IconBadge icon={Icon} className="shrink-0" />
                     <div>
                       <p className="text-sm font-medium">{channel.value}</p>
                       <p className="text-sm text-muted">

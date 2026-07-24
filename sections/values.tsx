@@ -2,6 +2,7 @@ import { Container } from "@/components/common/container";
 import { Section } from "@/components/common/section";
 import { SectionHeading } from "@/components/common/section-heading";
 import { Reveal } from "@/components/common/reveal";
+import { IconBadge } from "@/components/common/icon-badge";
 import { companyValues } from "@/lib/content";
 
 export function Values() {
@@ -22,9 +23,7 @@ export function Values() {
                 delay={(index % 2) * 0.08}
                 className="surface-gradient flex gap-5 rounded-2xl border border-border p-7"
               >
-                <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl border border-border bg-surface text-primary">
-                  <Icon className="size-5" />
-                </span>
+                <IconBadge icon={Icon} className="shrink-0" />
                 <div>
                   <h3 className="text-lg font-semibold tracking-tight">
                     {value.title}
