@@ -14,15 +14,17 @@ export function Stats() {
               <Reveal
                 key={stat.label}
                 delay={index * 0.08}
-                className="flex flex-col gap-2 border-border p-8 sm:border-l first:border-l-0 lg:p-10"
+                className="border-border p-8 sm:border-l first:border-l-0 lg:p-10"
               >
                 <dt className="sr-only">{stat.label}</dt>
-                <dd className="text-4xl font-semibold tracking-tight sm:text-5xl">
-                  {stat.prefix}
-                  <AnimatedCounter value={stat.value} />
-                  <span className="text-gradient">{stat.suffix}</span>
+                <dd className="flex flex-col gap-2">
+                  <span className="text-4xl font-semibold tracking-tight sm:text-5xl">
+                    {stat.prefix}
+                    <AnimatedCounter value={stat.value} />
+                    <span className="text-gradient">{stat.suffix}</span>
+                  </span>
+                  <span className="text-sm text-muted">{stat.label}</span>
                 </dd>
-                <p className="text-sm text-muted">{stat.label}</p>
               </Reveal>
             ))}
           </dl>

@@ -118,13 +118,17 @@ export function Testimonials() {
               aria-label={`Go to testimonial ${index + 1}`}
               aria-current={index === selected ? "true" : undefined}
               onClick={() => emblaApi?.scrollTo(index)}
-              className={cn(
-                "h-2.5 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                index === selected
-                  ? "w-6 bg-primary"
-                  : "w-2.5 bg-border-strong hover:bg-muted",
-              )}
-            />
+              className="group flex size-6 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              <span
+                className={cn(
+                  "h-1.5 rounded-full transition-all duration-300",
+                  index === selected
+                    ? "w-6 bg-primary"
+                    : "w-1.5 bg-border-strong group-hover:bg-muted",
+                )}
+              />
+            </button>
           ))}
         </div>
       </Container>
