@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowRight, PlayCircle, Sparkles } from "lucide-react";
 import { Container } from "@/components/common/container";
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,7 @@ export function Hero() {
       <Container>
         <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_1fr]">
           <div className="flex flex-col items-start">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: easeOutExpo }}
@@ -27,7 +27,7 @@ export function Hero() {
                 <Sparkles className="size-3" />
                 Introducing autonomous agents
               </Badge>
-            </motion.div>
+            </m.div>
 
             <h1 className="mt-6 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
               {headline.map((word, index) => (
@@ -35,7 +35,7 @@ export function Hero() {
                   key={`${word}-${index}`}
                   className="inline-block overflow-hidden pb-[0.05em] align-bottom"
                 >
-                  <motion.span
+                  <m.span
                     className="inline-block"
                     initial={{ y: "110%" }}
                     animate={{ y: 0 }}
@@ -51,12 +51,12 @@ export function Hero() {
                       word
                     )}
                     {index < headline.length - 1 ? " " : ""}
-                  </motion.span>
+                  </m.span>
                 </span>
               ))}
             </h1>
 
-            <motion.p
+            <m.p
               className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -65,9 +65,9 @@ export function Hero() {
               NeuroFlow AI deploys reasoning agents that plan, execute, and
               improve your operations across every tool your team already uses.
               No brittle scripts. Full visibility.
-            </motion.p>
+            </m.p>
 
-            <motion.div
+            <m.div
               className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -87,19 +87,19 @@ export function Hero() {
                   See how it works
                 </Link>
               </Button>
-            </motion.div>
+            </m.div>
 
-            <motion.p
+            <m.p
               className="mt-8 font-mono text-xs uppercase tracking-wider text-muted"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.8 }}
             >
               Free forever plan · No credit card · SOC 2 Type II
-            </motion.p>
+            </m.p>
           </div>
 
-          <motion.div
+          <m.div
             className="relative"
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -129,7 +129,7 @@ export function Hero() {
               </p>
               <p className="text-lg font-semibold text-gradient">4.2h / week</p>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </Container>
     </section>

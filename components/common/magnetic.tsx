@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
-import { motion } from "framer-motion";
-import { useMediaQuery } from "@/hooks/use-media-query";
+import { useRef, type ReactNode } from "react";
+import { m, useMotionValue, useSpring } from "framer-motion";
+import { useInteractiveMotion } from "@/hooks/use-interactive-motion";
 
 interface MagneticProps {
   children: ReactNode;
@@ -16,31 +16,35 @@ export function Magnetic({
   className,
 }: MagneticProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const finePointer = useMediaQuery("(pointer: fine)");
-  const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
-  const enabled = finePointer && !reducedMotion;
+  const enabled = useInteractiveMotion();
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 260, damping: 18, mass: 0.5 });
+  const springY = useSpring(y, { stiffness: 260, damping: 18, mass: 0.5 });
 
   const onMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!enabled) return;
     const node = ref.current;
     if (!node) return;
     const rect = node.getBoundingClientRect();
-    const x = (event.clientX - (rect.left + rect.width / 2)) * strength;
-    const y = (event.clientY - (rect.top + rect.height / 2)) * strength;
-    setOffset({ x, y });
+    x.set((event.clientX - (rect.left + rect.width / 2)) * strength);
+    y.set((event.clientY - (rect.top + rect.height / 2)) * strength);
+  };
+
+  const onMouseLeave = () => {
+    x.set(0);
+    y.set(0);
   };
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={className}
       onMouseMove={onMouseMove}
-      onMouseLeave={() => setOffset({ x: 0, y: 0 })}
-      animate={{ x: offset.x, y: offset.y }}
-      transition={{ type: "spring", stiffness: 260, damping: 18, mass: 0.5 }}
+      onMouseLeave={onMouseLeave}
+      style={{ x: springX, y: springY }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

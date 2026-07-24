@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { m, useMotionValue, useSpring } from "framer-motion";
 import {
   Bot,
   Database,
@@ -9,7 +10,6 @@ import {
   Send,
   ShieldCheck,
 } from "lucide-react";
-import { useMousePosition } from "@/hooks/use-mouse-position";
 import { usePrefersReducedMotion } from "@/hooks/use-media-query";
 import { easeOutExpo } from "@/lib/motion";
 
@@ -32,22 +32,24 @@ const edges = [
 ];
 
 export function WorkflowGraph() {
-  const { x, y } = useMousePosition();
   const reducedMotion = usePrefersReducedMotion();
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const x = useSpring(rawX, { stiffness: 40, damping: 20 });
+  const y = useSpring(rawY, { stiffness: 40, damping: 20 });
 
-  const parallaxX = reducedMotion
-    ? 0
-    : (x / (typeof window !== "undefined" ? window.innerWidth : 1) - 0.5) * 16;
-  const parallaxY = reducedMotion
-    ? 0
-    : (y / (typeof window !== "undefined" ? window.innerHeight : 1) - 0.5) * 16;
+  useEffect(() => {
+    if (reducedMotion) return;
+    const move = (event: MouseEvent) => {
+      rawX.set((event.clientX / window.innerWidth - 0.5) * 16);
+      rawY.set((event.clientY / window.innerHeight - 0.5) * 16);
+    };
+    window.addEventListener("mousemove", move, { passive: true });
+    return () => window.removeEventListener("mousemove", move);
+  }, [reducedMotion, rawX, rawY]);
 
   return (
-    <motion.div
-      className="relative w-full"
-      animate={{ x: parallaxX, y: parallaxY }}
-      transition={{ type: "spring", stiffness: 40, damping: 20 }}
-    >
+    <m.div className="relative w-full" style={{ x, y }}>
       <svg
         viewBox="0 0 560 300"
         className="w-full"
@@ -70,7 +72,7 @@ export function WorkflowGraph() {
               stroke="var(--border-strong)"
               strokeWidth="1.5"
             />
-            <motion.path
+            <m.path
               d={d}
               fill="none"
               stroke="url(#edge)"
@@ -92,7 +94,7 @@ export function WorkflowGraph() {
         ))}
 
         {nodes.map((node, index) => (
-          <motion.g
+          <m.g
             key={node.id}
             initial={{ opacity: 0, scale: 0.6 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -109,7 +111,7 @@ export function WorkflowGraph() {
               strokeWidth="1"
             />
             {node.id === "agent" ? (
-              <motion.rect
+              <m.rect
                 x={node.x - 26}
                 y={node.y - 20}
                 width="52"
@@ -118,13 +120,11 @@ export function WorkflowGraph() {
                 fill="none"
                 stroke="url(#edge)"
                 strokeWidth="1.6"
-                animate={
-                  reducedMotion ? undefined : { opacity: [0.4, 1, 0.4] }
-                }
+                animate={reducedMotion ? undefined : { opacity: [0.4, 1, 0.4] }}
                 transition={{ duration: 2.4, repeat: Infinity }}
               />
             ) : null}
-          </motion.g>
+          </m.g>
         ))}
       </svg>
 
@@ -135,18 +135,16 @@ export function WorkflowGraph() {
             <div
               key={node.id}
               className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center justify-center text-primary"
-              style={
-                {
-                  left: `${(node.x / 560) * 100}%`,
-                  top: `${(node.y / 300) * 100}%`,
-                } as React.CSSProperties
-              }
+              style={{
+                left: `${(node.x / 560) * 100}%`,
+                top: `${(node.y / 300) * 100}%`,
+              }}
             >
               <Icon className="size-4" aria-hidden />
             </div>
           );
         })}
       </div>
-    </motion.div>
+    </m.div>
   );
 }

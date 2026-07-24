@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { motion, type Variants } from "framer-motion";
+import { m, type Variants } from "framer-motion";
 import { blurReveal, fadeUp, viewportOnce } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -27,7 +27,7 @@ export function Reveal({
   delay = 0,
   as = "div",
 }: RevealProps) {
-  const MotionTag = motion[as];
+  const MotionTag = m[as];
   return (
     <MotionTag
       className={cn(className)}

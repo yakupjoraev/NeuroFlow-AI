@@ -1,8 +1,13 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
-import { motion } from "framer-motion";
-import { useMediaQuery } from "@/hooks/use-media-query";
+import { useRef, type ReactNode } from "react";
+import {
+  m,
+  useMotionTemplate,
+  useMotionValue,
+  useSpring,
+} from "framer-motion";
+import { useInteractiveMotion } from "@/hooks/use-interactive-motion";
 import { cn } from "@/lib/utils";
 
 interface TiltCardProps {
@@ -13,11 +18,13 @@ interface TiltCardProps {
 
 export function TiltCard({ children, className, max = 8 }: TiltCardProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [transform, setTransform] = useState({ rx: 0, ry: 0 });
-  const [glow, setGlow] = useState({ x: 50, y: 50 });
-  const finePointer = useMediaQuery("(pointer: fine)");
-  const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
-  const enabled = finePointer && !reducedMotion;
+  const enabled = useInteractiveMotion();
+
+  const rotateX = useSpring(useMotionValue(0), { stiffness: 180, damping: 20 });
+  const rotateY = useSpring(useMotionValue(0), { stiffness: 180, damping: 20 });
+  const glowX = useMotionValue(50);
+  const glowY = useMotionValue(50);
+  const background = useMotionTemplate`radial-gradient(340px circle at ${glowX}% ${glowY}%, color-mix(in oklab, var(--primary) 18%, transparent), transparent 60%)`;
 
   const onMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!enabled) return;
@@ -26,35 +33,33 @@ export function TiltCard({ children, className, max = 8 }: TiltCardProps) {
     const rect = node.getBoundingClientRect();
     const px = (event.clientX - rect.left) / rect.width;
     const py = (event.clientY - rect.top) / rect.height;
-    setTransform({ rx: (0.5 - py) * max * 2, ry: (px - 0.5) * max * 2 });
-    setGlow({ x: px * 100, y: py * 100 });
+    rotateX.set((0.5 - py) * max * 2);
+    rotateY.set((px - 0.5) * max * 2);
+    glowX.set(px * 100);
+    glowY.set(py * 100);
   };
 
   const reset = () => {
-    setTransform({ rx: 0, ry: 0 });
-    setGlow({ x: 50, y: 50 });
+    rotateX.set(0);
+    rotateY.set(0);
+    glowX.set(50);
+    glowY.set(50);
   };
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       onMouseMove={onMouseMove}
       onMouseLeave={reset}
-      animate={{ rotateX: transform.rx, rotateY: transform.ry }}
-      transition={{ type: "spring", stiffness: 180, damping: 20 }}
+      style={{ rotateX, rotateY }}
       className={cn("group relative [transform-style:preserve-3d]", className)}
     >
-      <div
+      <m.div
         aria-hidden
-        className="spotlight pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={
-          {
-            "--spot-x": `${glow.x}%`,
-            "--spot-y": `${glow.y}%`,
-          } as React.CSSProperties
-        }
+        className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        style={{ background }}
       />
       {children}
-    </motion.div>
+    </m.div>
   );
 }

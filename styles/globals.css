@@ -328,14 +328,6 @@
     );
   }
 
-  .spotlight {
-    background: radial-gradient(
-      340px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-      color-mix(in oklab, var(--primary) 18%, transparent),
-      transparent 60%
-    );
-  }
-
   .tabular-nums {
     font-variant-numeric: tabular-nums;
   }

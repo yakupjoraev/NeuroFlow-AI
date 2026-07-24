@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { ThemeProvider } from "@/components/common/theme-provider";
+import { MotionProvider } from "@/components/common/motion-provider";
 import { SmoothScroll } from "@/components/common/smooth-scroll";
 import { CustomCursor } from "@/components/common/custom-cursor";
 import { Backdrop } from "@/components/backgrounds/backdrop";
@@ -70,15 +71,17 @@ export default function RootLayout({
           >
             Skip to content
           </a>
-          <Backdrop />
-          <CustomCursor />
-          <SmoothScroll>
-            <Navbar />
-            <main id="main" className="relative">
-              {children}
-            </main>
-            <Footer />
-          </SmoothScroll>
+          <MotionProvider>
+            <Backdrop />
+            <CustomCursor />
+            <SmoothScroll>
+              <Navbar />
+              <main id="main" className="relative">
+                {children}
+              </main>
+              <Footer />
+            </SmoothScroll>
+          </MotionProvider>
         </ThemeProvider>
       </body>
     </html>
