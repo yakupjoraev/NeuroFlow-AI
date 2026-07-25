@@ -6,14 +6,14 @@ import { forwardRef, type ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-[transform,background-color,border-color,box-shadow,color] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 active:scale-[0.97] [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xs text-sm font-medium transition-[transform,background-color,border-color,color] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 active:translate-y-px [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         primary:
-          "bg-primary-strong text-primary-foreground shadow-[0_8px_30px_-8px_var(--glow)] hover:shadow-[0_12px_40px_-6px_var(--glow)] hover:brightness-110",
+          "bg-primary text-primary-foreground hover:bg-[#ff6a33]",
         secondary:
-          "border border-border bg-surface/60 text-foreground hover:border-border-strong hover:bg-surface-2",
+          "border border-border-strong bg-transparent text-foreground hover:border-primary hover:text-primary",
         ghost: "text-foreground hover:bg-surface-2",
         outline:
           "border border-border-strong bg-transparent text-foreground hover:bg-surface-2",

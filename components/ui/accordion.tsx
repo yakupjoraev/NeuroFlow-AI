@@ -1,7 +1,7 @@
 "use client";
 
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { Plus } from "lucide-react";
+import { Plus } from "@phosphor-icons/react/dist/ssr";
 import { forwardRef, type ComponentPropsWithoutRef, type ElementRef } from "react";
 import { cn } from "@/lib/utils";
 
@@ -33,7 +33,10 @@ const AccordionTrigger = forwardRef<
       {...props}
     >
       {children}
-      <Plus className="size-5 shrink-0 text-muted transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:text-primary" />
+      <Plus
+        weight="light"
+        className="size-5 shrink-0 text-muted transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:text-primary"
+      />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));

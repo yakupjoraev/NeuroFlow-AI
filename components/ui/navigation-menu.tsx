@@ -1,7 +1,7 @@
 "use client";
 
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
-import { ChevronDown } from "lucide-react";
+import { CaretDown } from "@phosphor-icons/react/dist/ssr";
 import {
   forwardRef,
   type ComponentPropsWithoutRef,
@@ -45,14 +45,15 @@ const NavigationMenuTrigger = forwardRef<
   <NavigationMenuPrimitive.Trigger
     ref={ref}
     className={cn(
-      "group inline-flex h-9 items-center gap-1 rounded-full px-4 text-sm font-medium text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[state=open]:text-foreground",
+      "group inline-flex h-9 items-center gap-1.5 px-3 text-sm font-medium text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[state=open]:text-foreground",
       className,
     )}
     {...props}
   >
     {children}
-    <ChevronDown
-      className="size-3.5 transition-transform duration-300 group-data-[state=open]:rotate-180"
+    <CaretDown
+      weight="bold"
+      className="size-3 transition-transform duration-300 group-data-[state=open]:rotate-180"
       aria-hidden
     />
   </NavigationMenuPrimitive.Trigger>
@@ -84,7 +85,7 @@ const NavigationMenuViewport = forwardRef<
     <NavigationMenuPrimitive.Viewport
       ref={ref}
       className={cn(
-        "origin-top-center relative mt-3 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-2xl border border-border glass shadow-2xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 md:w-[var(--radix-navigation-menu-viewport-width)]",
+        "origin-top-center relative mt-2 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden border border-border bg-surface data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 md:w-[var(--radix-navigation-menu-viewport-width)]",
         className,
       )}
       {...props}

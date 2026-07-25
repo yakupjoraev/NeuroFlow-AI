@@ -3,7 +3,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, Check, Loader2 } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  CircleNotch,
+} from "@phosphor-icons/react/dist/ssr";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { newsletterSchema, type NewsletterValues } from "@/lib/validations";
@@ -55,13 +59,13 @@ export function NewsletterForm({ className }: NewsletterFormProps) {
         </div>
         <Button type="submit" disabled={isSubmitting} className="shrink-0">
           {isSubmitting ? (
-            <Loader2 className="size-4 animate-spin" />
+            <CircleNotch className="size-4 animate-spin" />
           ) : done ? (
-            <Check className="size-4" />
+            <Check weight="bold" className="size-4" />
           ) : (
             <>
               Subscribe
-              <ArrowRight className="size-4" />
+              <ArrowRight weight="bold" className="size-4" />
             </>
           )}
         </Button>

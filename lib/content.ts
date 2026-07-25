@@ -1,23 +1,23 @@
 import {
-  Workflow,
-  Bot,
+  FlowArrow,
+  Robot,
   GitBranch,
   ShieldCheck,
-  Zap,
-  Boxes,
-  LineChart,
-  Plug,
-  Braces,
-  Radar,
+  Lightning,
+  Cube,
+  ChartLine,
+  PlugsConnected,
+  BracketsCurly,
+  Pulse,
   Clock,
   Users,
-  Sparkles,
-  Layers,
-  Building2,
+  Sparkle,
+  Stack,
+  Buildings,
   ShoppingCart,
-  HeartPulse,
-  Banknote,
-} from "lucide-react";
+  Heartbeat,
+  Money,
+} from "@phosphor-icons/react/dist/ssr";
 import type {
   BentoFeature,
   FaqItem,
@@ -39,19 +39,19 @@ export const megaMenu: MegaMenuGroup[] = [
         label: "Agent Builder",
         href: "/features",
         description: "Compose autonomous agents with a visual canvas.",
-        icon: Bot,
+        icon: Robot,
       },
       {
         label: "Workflow Engine",
         href: "/features",
         description: "Branching logic that runs across every tool.",
-        icon: Workflow,
+        icon: FlowArrow,
       },
       {
         label: "Integrations",
         href: "/features",
         description: "300+ native connectors and a typed SDK.",
-        icon: Plug,
+        icon: PlugsConnected,
       },
     ],
   },
@@ -62,7 +62,7 @@ export const megaMenu: MegaMenuGroup[] = [
         label: "Observability",
         href: "/features",
         description: "Trace every decision an agent makes.",
-        icon: Radar,
+        icon: Pulse,
       },
       {
         label: "Governance",
@@ -74,7 +74,7 @@ export const megaMenu: MegaMenuGroup[] = [
         label: "Analytics",
         href: "/features",
         description: "Measure time saved and ROI in real time.",
-        icon: LineChart,
+        icon: ChartLine,
       },
     ],
   },
@@ -96,32 +96,28 @@ export const bentoFeatures: BentoFeature[] = [
     title: "Visual agent builder",
     description:
       "Drag, connect, and ship autonomous agents on an infinite canvas. No glue code, no brittle scripts.",
-    icon: Boxes,
+    icon: Cube,
     span: "lg",
-    accent: "var(--brand-via)",
   },
   {
     title: "Runs where you work",
     description:
       "Native connectors for Slack, Salesforce, Notion, GitHub, and 300 more.",
-    icon: Plug,
+    icon: PlugsConnected,
     span: "sm",
-    accent: "var(--brand-to)",
   },
   {
     title: "Typed SDK",
     description: "Drop into TypeScript when you need full control.",
-    icon: Braces,
+    icon: BracketsCurly,
     span: "sm",
-    accent: "var(--brand-from)",
   },
   {
     title: "Explainable by default",
     description:
       "Every agent decision is traced, versioned, and replayable, so you always know why.",
-    icon: Radar,
+    icon: Pulse,
     span: "md",
-    accent: "var(--brand-via)",
   },
   {
     title: "Enterprise governance",
@@ -129,7 +125,6 @@ export const bentoFeatures: BentoFeature[] = [
       "SOC 2 Type II, SSO, granular permissions, and human-in-the-loop approvals.",
     icon: ShieldCheck,
     span: "md",
-    accent: "var(--brand-to)",
   },
 ];
 
@@ -146,14 +141,14 @@ export const timeline: TimelineStep[] = [
     title: "Connect your stack",
     description:
       "Authenticate the tools your team already uses. NeuroFlow maps your data model in minutes, not months.",
-    icon: Plug,
+    icon: PlugsConnected,
   },
   {
     step: "02",
     title: "Describe the outcome",
     description:
       "Write a goal in plain language. Agents propose a workflow, ask clarifying questions, and draft the logic.",
-    icon: Sparkles,
+    icon: Sparkle,
   },
   {
     step: "03",
@@ -167,7 +162,7 @@ export const timeline: TimelineStep[] = [
     title: "Run and improve",
     description:
       "Agents execute around the clock, learn from every run, and surface optimizations you can accept in one click.",
-    icon: LineChart,
+    icon: ChartLine,
   },
 ];
 
@@ -176,7 +171,7 @@ export const useCases: UseCase[] = [
     title: "Operations",
     description:
       "Automate onboarding, procurement, and internal requests end to end.",
-    icon: Building2,
+    icon: Buildings,
     metric: "9.4x",
     metricLabel: "faster cycle time",
   },
@@ -184,7 +179,7 @@ export const useCases: UseCase[] = [
     title: "Revenue",
     description:
       "Enrich leads, route deals, and keep every CRM record accurate on its own.",
-    icon: Banknote,
+    icon: Money,
     metric: "+31%",
     metricLabel: "pipeline velocity",
   },
@@ -192,7 +187,7 @@ export const useCases: UseCase[] = [
     title: "Support",
     description:
       "Resolve tier-one tickets instantly and escalate the rest with full context.",
-    icon: HeartPulse,
+    icon: Heartbeat,
     metric: "72%",
     metricLabel: "auto-resolved",
   },
@@ -211,13 +206,13 @@ export const featureHighlights = [
     title: "Agentic orchestration",
     description:
       "Chain reasoning, tools, and approvals into workflows that adapt to real-world edge cases without breaking.",
-    icon: Workflow,
+    icon: FlowArrow,
   },
   {
     title: "Parallel execution",
     description:
       "Fan out thousands of concurrent runs with automatic retries, backoff, and idempotency built in.",
-    icon: Zap,
+    icon: Lightning,
   },
   {
     title: "Version everything",
@@ -229,13 +224,13 @@ export const featureHighlights = [
     title: "Composable blocks",
     description:
       "Reuse triggers, actions, and sub-agents across your organization from a shared, governed library.",
-    icon: Layers,
+    icon: Stack,
   },
   {
     title: "Real-time observability",
     description:
       "Watch live traces, latency, and cost per run. Alert on drift before it reaches your customers.",
-    icon: Radar,
+    icon: Pulse,
   },
   {
     title: "Human in the loop",
@@ -399,13 +394,13 @@ export const companyValues = [
     title: "Speed as a feature",
     description:
       "Every interaction should feel instant. We treat latency as a bug, not a constraint.",
-    icon: Zap,
+    icon: Lightning,
   },
   {
     title: "Craft over shortcuts",
     description:
       "Details compound. We sweat the interface, the docs, and the edge cases most teams skip.",
-    icon: Sparkles,
+    icon: Sparkle,
   },
   {
     title: "Customer obsession",

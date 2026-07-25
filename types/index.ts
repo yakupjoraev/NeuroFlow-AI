@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react";
+import type { Icon } from "@phosphor-icons/react";
 
 export interface NavLink {
   label: string;
@@ -9,7 +9,7 @@ export interface MegaMenuItem {
   label: string;
   href: string;
   description: string;
-  icon: LucideIcon;
+  icon: Icon;
 }
 
 export interface MegaMenuGroup {
@@ -26,12 +26,11 @@ export interface NavItem {
 export interface Feature {
   title: string;
   description: string;
-  icon: LucideIcon;
+  icon: Icon;
 }
 
 export interface BentoFeature extends Feature {
   span: "sm" | "md" | "lg";
-  accent: string;
 }
 
 export interface Stat {
@@ -68,13 +67,13 @@ export interface TimelineStep {
   step: string;
   title: string;
   description: string;
-  icon: LucideIcon;
+  icon: Icon;
 }
 
 export interface UseCase {
   title: string;
   description: string;
-  icon: LucideIcon;
+  icon: Icon;
   metric: string;
   metricLabel: string;
 }

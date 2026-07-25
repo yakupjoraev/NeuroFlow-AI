@@ -7,9 +7,9 @@ interface AvatarProps {
 }
 
 const sizeMap = {
-  sm: "size-10 text-sm",
-  md: "size-12 text-base",
-  lg: "size-14 text-base",
+  sm: "size-10 text-xs",
+  md: "size-12 text-sm",
+  lg: "size-14 text-sm",
 } as const;
 
 export function Avatar({ initials, className, size = "sm" }: AvatarProps) {
@@ -17,7 +17,7 @@ export function Avatar({ initials, className, size = "sm" }: AvatarProps) {
     <span
       aria-hidden
       className={cn(
-        "brand-gradient inline-flex shrink-0 items-center justify-center rounded-full font-semibold text-white",
+        "inline-flex shrink-0 items-center justify-center rounded-full border border-primary font-mono tracking-[0.08em] text-primary",
         sizeMap[size],
         className,
       )}

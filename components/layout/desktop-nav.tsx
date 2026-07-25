@@ -29,7 +29,7 @@ export function DesktopNav() {
                   <div className="grid w-[34rem] grid-cols-2 gap-1 p-3">
                     {megaMenu.map((group) => (
                       <div key={group.label} className="p-2">
-                        <p className="px-3 pb-2 font-mono text-[0.7rem] uppercase tracking-wider text-muted">
+                        <p className="label-mono px-3 pb-2 text-muted">
                           {group.label}
                         </p>
                         <ul className="flex flex-col gap-1">
@@ -38,11 +38,13 @@ export function DesktopNav() {
                               <NavigationMenuLink asChild>
                                 <Link
                                   href={menuItem.href}
-                                  className="group flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-surface-2"
+                                  className="group flex items-start gap-3 p-3 transition-colors hover:bg-surface-2"
                                 >
-                                  <span className="mt-0.5 inline-flex size-9 items-center justify-center rounded-lg border border-border bg-surface text-primary">
-                                    <menuItem.icon className="size-4" aria-hidden />
-                                  </span>
+                                  <menuItem.icon
+                                    weight="light"
+                                    className="mt-0.5 size-5 shrink-0 text-primary"
+                                    aria-hidden
+                                  />
                                   <span className="flex flex-col">
                                     <span className="text-sm font-medium text-foreground">
                                       {menuItem.label}
@@ -67,7 +69,7 @@ export function DesktopNav() {
                   <Link
                     href={item.href}
                     className={cn(
-                      "inline-flex h-9 items-center rounded-full px-4 text-sm font-medium transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                      "inline-flex h-9 items-center px-3 text-sm font-medium transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                       pathname === item.href ? "text-foreground" : "text-muted",
                     )}
                     aria-current={pathname === item.href ? "page" : undefined}

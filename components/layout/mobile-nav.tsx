@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
-import { ArrowRight, Menu, X } from "lucide-react";
+import { ArrowRight, List, X } from "@phosphor-icons/react/dist/ssr";
 import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
 import { navItems } from "@/lib/site";
@@ -51,7 +51,7 @@ export function MobileNav() {
         aria-expanded={open}
         onClick={() => setOpen(true)}
       >
-        <Menu />
+        <List />
       </IconButton>
 
       <AnimatePresence>
@@ -67,7 +67,7 @@ export function MobileNav() {
             aria-label="Site navigation"
           >
             <div className="flex items-center justify-between px-5 py-5">
-              <span className="font-semibold tracking-tight">NeuroFlow</span>
+              <span className="font-display text-lg font-bold tracking-[-0.04em]">NeuroFlow</span>
               <IconButton aria-label="Close menu" onClick={() => setOpen(false)}>
                 <X />
               </IconButton>
@@ -95,7 +95,7 @@ export function MobileNav() {
                   <Link
                     ref={index === 0 ? firstLinkRef : undefined}
                     href={item.href}
-                    className="block border-b border-border py-4 text-2xl font-medium tracking-tight"
+                    className="font-display block border-b border-border py-4 text-3xl font-bold tracking-[-0.03em]"
                   >
                     {item.label}
                   </Link>
@@ -107,9 +107,9 @@ export function MobileNav() {
                   <Link
                     key={menuItem.label}
                     href={menuItem.href}
-                    className="flex flex-col gap-2 rounded-xl border border-border bg-surface/50 p-4"
+                    className="flex flex-col gap-2 border border-border bg-surface p-4"
                   >
-                    <menuItem.icon className="size-4 text-primary" aria-hidden />
+                    <menuItem.icon weight="light" className="size-5 text-primary" aria-hidden />
                     <span className="text-sm font-medium">
                       {menuItem.label}
                     </span>
@@ -119,7 +119,7 @@ export function MobileNav() {
 
               <Button asChild size="lg" className="mt-8 w-full">
                 <Link href="/contact">
-                  Get started
+                  Start automating
                   <ArrowRight className="size-4" />
                 </Link>
               </Button>

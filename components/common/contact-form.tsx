@@ -3,7 +3,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle,
+  CircleNotch,
+} from "@phosphor-icons/react/dist/ssr";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -46,14 +50,10 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="surface-gradient flex flex-col items-center rounded-2xl border border-border p-10 text-center">
-        <span className="inline-flex size-14 items-center justify-center rounded-full bg-primary/10 text-primary">
-          <CheckCircle2 className="size-7" />
-        </span>
-        <h3 className="mt-5 text-xl font-semibold tracking-tight">
-          Thanks, we are on it
-        </h3>
-        <p className="mt-2 max-w-sm text-sm text-muted">
+      <div className="flex flex-col items-start border border-border-strong p-10">
+        <CheckCircle weight="light" aria-hidden className="size-9 text-primary" />
+        <h3 className="display-md mt-6">Thanks, we are on it</h3>
+        <p className="mt-3 max-w-[40ch] text-sm leading-relaxed text-muted">
           A member of our team will reach out within one business day. Keep an
           eye on your inbox.
         </p>
@@ -65,7 +65,7 @@ export function ContactForm() {
     <form
       onSubmit={handleSubmit(onSubmit)}
       noValidate
-      className="surface-gradient flex flex-col gap-5 rounded-2xl border border-border p-7 sm:p-8"
+      className="flex flex-col gap-5 border border-border-strong p-7 sm:p-8"
     >
       <Field
         id="name"
@@ -126,10 +126,10 @@ export function ContactForm() {
                 setValue("teamSize", size, { shouldValidate: true })
               }
               className={cn(
-                "rounded-lg border px-3 py-2.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                "rounded-xs border px-3 py-2.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 selectedSize === size
-                  ? "border-primary/50 bg-primary/10 text-foreground"
-                  : "border-border bg-surface/60 text-muted hover:border-border-strong",
+                  ? "border-primary text-primary"
+                  : "border-border-strong text-muted hover:border-muted hover:text-foreground",
               )}
             >
               {size}
@@ -159,11 +159,11 @@ export function ContactForm() {
 
       <Button type="submit" size="lg" disabled={isSubmitting}>
         {isSubmitting ? (
-          <Loader2 className="size-4 animate-spin" />
+          <CircleNotch className="size-4 animate-spin" />
         ) : (
           <>
             Send message
-            <ArrowRight className="size-4" />
+            <ArrowRight weight="bold" className="size-4" />
           </>
         )}
       </Button>
