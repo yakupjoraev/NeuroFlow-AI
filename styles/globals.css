@@ -1,68 +1,38 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:where(.dark, .dark *));
+/*
+  NeuroFlow AI - dark cinematic scroll-story.
+
+  Palette: cool graphite base, single warm signal accent. The warm/cool split is
+  borrowed from cinema color grading, which is why there is exactly one accent
+  and no multi-stop brand gradient anywhere.
+
+  Radius rule (one system, applied everywhere):
+    surfaces, media, sections  -> 0
+    controls (button, input)    -> 2px  (--radius-xs / rounded-xs)
+    avatars                     -> full (portrait mask, not a UI shape)
+*/
 
 :root {
-  --background: #fafafb;
-  --surface: #ffffff;
-  --surface-2: #f4f4f6;
-  --foreground: #0a0a0c;
-  --muted: #5b5b66;
-  --border: #e7e7ec;
-  --border-strong: #d7d7de;
+  color-scheme: dark;
 
-  --primary: #6d28d9;
-  --primary-strong: #6d28d9;
-  --primary-foreground: #ffffff;
-  --accent: #0e7490;
+  --background: #0a0b0d;
+  --surface: #0f1116;
+  --surface-2: #14171d;
+  --foreground: #edeff3;
+  --muted: #949aa7;
+  --border: #21242c;
+  --border-strong: #343943;
 
-  --brand-from: #6366f1;
-  --brand-via: #8b5cf6;
-  --brand-to: #06b6d4;
+  --primary: #f0561d;
+  --primary-strong: #f0561d;
+  --primary-foreground: #0a0b0d;
+  --accent: #f0561d;
 
-  --text-grad-from: #7c3aed;
-  --text-grad-to: #0e7490;
-
-  --glass-bg: rgba(255, 255, 255, 0.6);
-  --glass-border: rgba(10, 10, 12, 0.08);
-  --glow: rgba(124, 58, 237, 0.28);
-  --grid-line: rgba(10, 10, 12, 0.045);
-
-  --ring: #6d28d9;
-  --destructive: #dc2626;
-  --success: #059669;
-}
-
-.dark {
-  --background: #08080a;
-  --surface: #101014;
-  --surface-2: #16161c;
-  --foreground: #ededf0;
-  --muted: #a6a6b1;
-  --border: #23232b;
-  --border-strong: #2f2f39;
-
-  --primary: #8b5cf6;
-  --primary-strong: #7c3aed;
-  --primary-foreground: #ffffff;
-  --accent: #22d3ee;
-
-  --brand-from: #6366f1;
-  --brand-via: #8b5cf6;
-  --brand-to: #22d3ee;
-
-  --text-grad-from: #c4b5fd;
-  --text-grad-to: #67e8f9;
-
-  --glass-bg: rgba(16, 16, 20, 0.5);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glow: rgba(124, 58, 237, 0.35);
-  --grid-line: rgba(255, 255, 255, 0.04);
-
-  --ring: #8b5cf6;
-  --destructive: #f87171;
-  --success: #34d399;
+  --ring: #f0561d;
+  --destructive: #f4795c;
+  --success: #6fcf97;
 }
 
 @theme inline {
@@ -81,23 +51,22 @@
   --color-destructive: var(--destructive);
   --color-success: var(--success);
 
+  --font-display: var(--font-cabinet), var(--font-geist-sans), sans-serif;
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  --radius-xs: 0.375rem;
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
-  --radius-2xl: 2rem;
+  --radius-xs: 2px;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-3xl: 0;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
 
-  --animate-aurora: aurora 18s ease-in-out infinite alternate;
-  --animate-marquee: marquee 40s linear infinite;
-  --animate-shimmer: shimmer 2.4s linear infinite;
-  --animate-float: float 7s ease-in-out infinite;
+  --animate-marquee: marquee 46s linear infinite;
   --animate-accordion-down: accordion-down 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   --animate-accordion-up: accordion-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -126,18 +95,6 @@
   }
 }
 
-@keyframes aurora {
-  0% {
-    transform: translate3d(-8%, -4%, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(6%, 5%, 0) scale(1.12);
-  }
-  100% {
-    transform: translate3d(-4%, 8%, 0) scale(1.04);
-  }
-}
-
 @keyframes marquee {
   from {
     transform: translateX(0);
@@ -147,32 +104,12 @@
   }
 }
 
-@keyframes shimmer {
-  from {
-    background-position: 200% 0;
-  }
-  to {
-    background-position: -200% 0;
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
-}
-
 @layer base {
   * {
     border-color: var(--color-border);
   }
 
   html {
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
   }
@@ -183,26 +120,29 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     overflow-x: hidden;
   }
 
   ::selection {
-    background-color: color-mix(in oklab, var(--primary) 32%, transparent);
-    color: var(--color-foreground);
+    background-color: var(--primary);
+    color: var(--primary-foreground);
   }
 
   :focus-visible {
     outline: 2px solid var(--color-ring);
     outline-offset: 2px;
-    border-radius: 3px;
   }
 
   h1,
   h2,
-  h3,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
   h4 {
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
     text-wrap: balance;
   }
 
@@ -215,53 +155,53 @@
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: transparent;
+    background: var(--background);
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-border-strong);
-    border-radius: 9999px;
-    border: 2px solid var(--color-background);
+    background: var(--border-strong);
+    border: 3px solid var(--background);
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-muted);
+    background: var(--muted);
   }
 }
 
 @layer utilities {
-  .text-gradient {
-    background-image: linear-gradient(
-      100deg,
-      var(--text-grad-from),
-      var(--text-grad-to)
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  .font-display {
+    font-family: var(--font-display);
   }
 
-  .glass {
-    background-color: var(--glass-bg);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
-    backdrop-filter: blur(16px) saturate(160%);
-    border: 1px solid var(--glass-border);
+  /* Type scale for the cinematic display headlines. Tight tracking is part of
+     the voice; it is set here so every section pulls the same numbers. */
+  .display-xl {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.75rem, 8vw, 6.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
   }
 
-  .bg-grid {
-    background-image: linear-gradient(
-        to right,
-        var(--grid-line) 1px,
-        transparent 1px
-      ),
-      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-    background-size: 56px 56px;
+  .display-lg {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 4.6vw, 3.75rem);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
   }
 
-  .bg-dots {
-    background-image: radial-gradient(
-      var(--grid-line) 1.2px,
-      transparent 1.2px
-    );
-    background-size: 24px 24px;
+  .display-md {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+
+  .label-mono {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
   }
 
   .mask-fade-y {
@@ -278,57 +218,16 @@
     mask-image: linear-gradient(
       to right,
       transparent,
-      black 12%,
-      black 88%,
+      black 10%,
+      black 90%,
       transparent
     );
   }
 
-  .mask-radial {
-    mask-image: radial-gradient(ellipse 60% 60% at 50% 40%, black, transparent);
-  }
-
-  .aurora-from {
-    background: radial-gradient(
-      circle at center,
-      var(--brand-from),
-      transparent 62%
-    );
-  }
-  .aurora-via {
-    background: radial-gradient(
-      circle at center,
-      var(--brand-via),
-      transparent 62%
-    );
-  }
-  .aurora-to {
-    background: radial-gradient(
-      circle at center,
-      var(--brand-to),
-      transparent 60%
-    );
-  }
-
-  .noise-overlay {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  .surface-gradient {
-    background-image: linear-gradient(
-      180deg,
-      color-mix(in oklab, var(--surface) 92%, transparent),
-      color-mix(in oklab, var(--surface-2) 60%, transparent)
-    );
-  }
-
-  .brand-gradient {
-    background-image: linear-gradient(
-      100deg,
-      var(--brand-from),
-      var(--brand-via),
-      var(--brand-to)
-    );
+  /* Film grain. Only ever applied to a fixed, pointer-events-none layer so the
+     GPU never repaints it during scroll. */
+  .film-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   .tabular-nums {
@@ -337,9 +236,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
   *,
   *::before,
   *::after {

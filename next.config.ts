@@ -5,9 +5,13 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: {
     formats: ["image/avif", "image/webp"],
+    remotePatterns: [
+      // Placeholder photography until the generated frames land in public/images.
+      { protocol: "https", hostname: "picsum.photos" },
+    ],
   },
   experimental: {
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: ["@phosphor-icons/react"],
   },
 };
 
