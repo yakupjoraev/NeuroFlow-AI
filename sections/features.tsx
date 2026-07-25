@@ -1,96 +1,115 @@
-import type { LucideIcon } from "lucide-react";
+"use client";
+
+import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { Container } from "@/components/common/container";
-import { Section } from "@/components/common/section";
 import { SectionHeading } from "@/components/common/section-heading";
-import { Reveal } from "@/components/common/reveal";
-import { TiltCard } from "@/components/common/tilt-card";
-import { IconBadge } from "@/components/common/icon-badge";
 import { bentoFeatures } from "@/lib/content";
-import { cn } from "@/lib/utils";
+import { frames } from "@/lib/media";
+import { usePrefersReducedMotion } from "@/hooks/use-media-query";
 
-interface FeatureCardProps {
-  title: string;
-  description: string;
-  icon: LucideIcon;
-  className?: string;
-  large?: boolean;
-}
-
-function FeatureCard({
-  title,
-  description,
-  icon: Icon,
-  className,
-  large = false,
-}: FeatureCardProps) {
-  return (
-    <TiltCard
-      className={cn(
-        "surface-gradient h-full rounded-2xl border border-border p-6 sm:p-7",
-        className,
-      )}
-    >
-      <div className="relative z-10 flex h-full flex-col">
-        <IconBadge icon={Icon} />
-        <h3
-          className={cn(
-            "mt-5 font-semibold tracking-tight",
-            large ? "text-2xl" : "text-lg",
-          )}
-        >
-          {title}
-        </h3>
-        <p className="mt-2 max-w-md text-sm leading-relaxed text-muted">
-          {description}
-        </p>
-        {large ? (
-          <div className="mt-auto pt-8">
-            <div className="bg-dots h-32 w-full rounded-xl border border-border mask-fade-y" />
-          </div>
-        ) : null}
-      </div>
-    </TiltCard>
-  );
-}
+const featureFrames = [
+  frames.agentBuilder,
+  frames.connectors,
+  frames.sdk,
+  frames.observability,
+  frames.governance,
+];
 
 export function Features() {
-  const [big, wideA, wideB, midA, midB] = bentoFeatures;
+  const rootRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = usePrefersReducedMotion();
+
+  useEffect(() => {
+    if (reducedMotion) return;
+    const root = rootRef.current;
+    if (!root) return;
+
+    let cleanup = () => {};
+
+    (async () => {
+      const { gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+
+      const ctx = gsap.context(() => {
+        const cards = gsap.utils.toArray<HTMLElement>("[data-stack-card]");
+        // Each card recedes as the next one arrives, so the stack reads as one
+        // continuous shot change rather than a list of panels.
+        cards.forEach((card, index) => {
+          if (index === cards.length - 1) return;
+          gsap.to(card, {
+            scale: 0.94,
+            opacity: 0.4,
+            ease: "none",
+            scrollTrigger: {
+              trigger: cards[index + 1],
+              start: "top bottom",
+              end: "top top",
+              scrub: true,
+            },
+          });
+        });
+      }, root);
+
+      cleanup = () => ctx.revert();
+    })();
+
+    return () => cleanup();
+  }, [reducedMotion]);
 
   return (
-    <Section id="features">
+    <section id="features" className="relative pt-24 sm:pt-32 lg:pt-40">
       <Container>
         <SectionHeading
           eyebrow="The platform"
-          title={
-            <>
-              One canvas for every <span className="text-gradient">agent</span>,
-              workflow, and tool
-            </>
-          }
+          title="One canvas for every agent, workflow, and tool"
           description="Build, run, and observe autonomous automations without stitching together five different products."
         />
-
-        <div className="mt-14 grid gap-4 lg:grid-cols-3 lg:grid-rows-2">
-          <Reveal className="h-full lg:col-span-2 lg:row-span-2">
-            <FeatureCard {...big} large />
-          </Reveal>
-          <Reveal className="h-full" delay={0.05}>
-            <FeatureCard {...wideA} />
-          </Reveal>
-          <Reveal className="h-full" delay={0.1}>
-            <FeatureCard {...wideB} />
-          </Reveal>
-        </div>
-
-        <div className="mt-4 grid gap-4 md:grid-cols-2">
-          <Reveal className="h-full">
-            <FeatureCard {...midA} />
-          </Reveal>
-          <Reveal className="h-full" delay={0.05}>
-            <FeatureCard {...midB} />
-          </Reveal>
-        </div>
       </Container>
-    </Section>
+
+      <div ref={rootRef} className="relative mt-16 lg:mt-24">
+        {bentoFeatures.map((feature, index) => {
+          const frame = featureFrames[index];
+          const Icon = feature.icon;
+
+          return (
+            <div
+              key={feature.title}
+              data-stack-card
+              className="sticky top-16 h-[min(78vh,44rem)] origin-top will-change-transform"
+            >
+              <div className="relative h-full overflow-hidden border-t border-border bg-background">
+                <Image
+                  src={frame.src}
+                  alt={frame.alt}
+                  fill
+                  sizes="100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-background/45" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/85 to-transparent" />
+
+                <div className="absolute inset-0 flex items-end">
+                  <Container className="pb-12 lg:pb-16">
+                    <Icon
+                      weight="light"
+                      aria-hidden
+                      className="size-8 text-primary"
+                    />
+                    <h3 className="display-md mt-6 max-w-[22ch]">
+                      {feature.title}
+                    </h3>
+                    <p className="mt-4 max-w-[46ch] leading-relaxed text-muted">
+                      {feature.description}
+                    </p>
+                  </Container>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }

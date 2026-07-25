@@ -19,12 +19,7 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow="About"
-        title={
-          <>
-            We are giving teams back their{" "}
-            <span className="text-gradient">best hours</span>
-          </>
-        }
+        title="We are giving teams back their best hours"
         description="NeuroFlow started with a simple frustration: the most talented teams spend their days on coordination, not craft. We build the autonomous layer that takes the busywork off their plate."
       />
       <Stats />

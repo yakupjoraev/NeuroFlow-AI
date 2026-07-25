@@ -23,24 +23,19 @@ export default function BlogPage() {
     <>
       <PageHero
         eyebrow="Blog"
-        title={
-          <>
-            Field notes on{" "}
-            <span className="text-gradient">autonomous work</span>
-          </>
-        }
+        title="Notes on autonomous work"
         description="Perspectives, playbooks, and engineering deep dives from the team building the operating system for autonomous work."
       />
       <Section className="pt-8">
         <Container>
-          <div className="grid gap-5 lg:grid-cols-2">
-            <Reveal className="lg:col-span-2">
+          <div className="grid gap-px bg-border lg:grid-cols-2">
+            <Reveal className="bg-background lg:col-span-2">
               <BlogCard post={featured} featured />
             </Reveal>
             {rest.map((post, index) => (
               <Reveal
                 key={post.slug}
-                className="h-full"
+                className="h-full bg-background"
                 delay={(index % 2) * 0.06}
               >
                 <BlogCard post={post} />

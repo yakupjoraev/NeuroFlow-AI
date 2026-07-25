@@ -9,29 +9,21 @@ export function Values() {
   return (
     <Section>
       <Container>
-        <SectionHeading
-          align="left"
-          eyebrow="What we believe"
-          title="Principles that shape the product"
-        />
-        <div className="mt-12 grid gap-4 sm:grid-cols-2">
+        <SectionHeading title="Principles that shape the product" />
+        <div className="mt-16 grid gap-y-12 sm:grid-cols-2 sm:gap-x-16">
           {companyValues.map((value, index) => {
             const Icon = value.icon;
             return (
               <Reveal
                 key={value.title}
                 delay={(index % 2) * 0.08}
-                className="surface-gradient flex gap-5 rounded-2xl border border-border p-7"
+                className="flex flex-col"
               >
-                <IconBadge icon={Icon} className="shrink-0" />
-                <div>
-                  <h3 className="text-lg font-semibold tracking-tight">
-                    {value.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
-                    {value.description}
-                  </p>
-                </div>
+                <IconBadge icon={Icon} />
+                <h3 className="display-md mt-6">{value.title}</h3>
+                <p className="mt-3 max-w-[44ch] leading-relaxed text-muted">
+                  {value.description}
+                </p>
               </Reveal>
             );
           })}

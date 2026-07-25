@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { Container } from "@/components/common/container";
 import { Reveal } from "@/components/common/reveal";
-import { Badge } from "@/components/ui/badge";
 
 interface PageHeroProps {
   eyebrow: string;
@@ -17,22 +16,20 @@ export function PageHero({
   children,
 }: PageHeroProps) {
   return (
-    <section className="relative overflow-hidden pt-36 pb-8 sm:pt-44">
-      <Container className="flex flex-col items-center text-center">
+    <section className="relative overflow-hidden border-b border-border pb-16 pt-24 sm:pt-32">
+      <Container className="flex flex-col items-start">
         <Reveal>
-          <Badge variant="brand">{eyebrow}</Badge>
+          <p className="label-mono mb-8 text-primary">{eyebrow}</p>
         </Reveal>
         <Reveal variant="blur">
-          <h1 className="mt-6 max-w-3xl text-balance text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-            {title}
-          </h1>
+          <h1 className="display-xl max-w-[18ch]">{title}</h1>
         </Reveal>
         <Reveal delay={0.05}>
-          <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted">
+          <p className="mt-8 max-w-[52ch] text-lg leading-relaxed text-muted sm:text-xl">
             {description}
           </p>
         </Reveal>
-        {children ? <div className="mt-9">{children}</div> : null}
+        {children ? <div className="mt-10">{children}</div> : null}
       </Container>
     </section>
   );

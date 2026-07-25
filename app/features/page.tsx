@@ -20,12 +20,7 @@ export default function FeaturesPage() {
     <>
       <PageHero
         eyebrow="Product"
-        title={
-          <>
-            The platform for <span className="text-gradient">autonomous</span>{" "}
-            operations
-          </>
-        }
+        title="The platform for autonomous operations"
         description="From a visual canvas to a typed SDK, NeuroFlow gives every team the tools to automate real work and keep full control."
       />
       <Features />

@@ -18,12 +18,7 @@ export default function PricingPage() {
     <>
       <PageHero
         eyebrow="Pricing"
-        title={
-          <>
-            Pricing that grows with your{" "}
-            <span className="text-gradient">automation</span>
-          </>
-        }
+        title="Pricing that grows with your automation"
         description="No seat taxes, no surprises. Pay for the runs you use and unlock more as your team scales."
       />
       <Pricing withHeading={false} />

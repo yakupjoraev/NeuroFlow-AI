@@ -1,45 +1,55 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Container } from "@/components/common/container";
-import { Section } from "@/components/common/section";
 import { Reveal } from "@/components/common/reveal";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/common/magnetic";
+import { frames } from "@/lib/media";
 
 export function Cta() {
   return (
-    <Section className="pb-8">
-      <Container>
+    <section className="relative isolate flex min-h-[80vh] items-end overflow-hidden">
+      <div aria-hidden className="absolute inset-0 -z-10">
+        <Image
+          src={frames.cta.src}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-background/45" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+      </div>
+
+      <Container className="pb-20 pt-32 lg:pb-28">
         <Reveal variant="blur">
-          <div className="relative overflow-hidden rounded-3xl border border-border px-6 py-16 text-center sm:px-12 sm:py-20">
-            <div aria-hidden className="absolute inset-0 -z-10">
-              <div className="bg-grid absolute inset-0 mask-radial opacity-60" />
-              <div className="aurora-via absolute left-1/2 top-full size-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40 blur-[120px]" />
-            </div>
-            <h2 className="mx-auto max-w-2xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
-              Give your team back its{" "}
-              <span className="text-gradient">best hours</span>
-            </h2>
-            <p className="mx-auto mt-5 max-w-xl text-pretty text-base text-muted sm:text-lg">
-              Join thousands of teams running their operations on autopilot.
-              Start free, scale when you are ready.
-            </p>
-            <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Magnetic>
-                <Button asChild size="lg">
-                  <Link href="/contact">
-                    Start for free
-                    <ArrowRight className="size-4" />
-                  </Link>
-                </Button>
-              </Magnetic>
-              <Button asChild variant="secondary" size="lg">
-                <Link href="/pricing">Compare plans</Link>
+          <h2 className="display-lg max-w-[20ch]">
+            Give your team back its best hours
+          </h2>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <p className="mt-6 max-w-[46ch] text-lg leading-relaxed text-muted">
+            Join thousands of teams running their operations on autopilot. Start
+            free, scale when you are ready.
+          </p>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Magnetic>
+              <Button asChild size="lg">
+                <Link href="/contact">
+                  Start automating
+                  <ArrowRight weight="bold" className="size-4" />
+                </Link>
               </Button>
-            </div>
+            </Magnetic>
+            <Button asChild variant="secondary" size="lg">
+              <Link href="/pricing">Compare plans</Link>
+            </Button>
           </div>
         </Reveal>
       </Container>
-    </Section>
+    </section>
   );
 }

@@ -1,135 +1,71 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
-import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
+import { useState } from "react";
+import { AnimatePresence, m } from "framer-motion";
 import { Container } from "@/components/common/container";
 import { Section } from "@/components/common/section";
-import { SectionHeading } from "@/components/common/section-heading";
 import { Avatar } from "@/components/common/avatar";
-import { IconButton } from "@/components/ui/icon-button";
 import { testimonials } from "@/lib/content";
-import { usePrefersReducedMotion } from "@/hooks/use-media-query";
+import { easeOutExpo } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 export function Testimonials() {
-  const reducedMotion = usePrefersReducedMotion();
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, align: "start", skipSnaps: false },
-    reducedMotion
-      ? []
-      : [Autoplay({ delay: 4500, stopOnInteraction: true })],
-  );
   const [selected, setSelected] = useState(0);
-  const [snaps, setSnaps] = useState<number[]>([]);
-
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setSelected(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    setSnaps(emblaApi.scrollSnapList());
-    emblaApi.on("select", onSelect);
-    onSelect();
-    return () => {
-      emblaApi.off("select", onSelect);
-    };
-  }, [emblaApi, onSelect]);
+  const active = testimonials[selected];
 
   return (
-    <Section>
+    <Section className="border-t border-border">
       <Container>
-        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-          <SectionHeading
-            align="left"
-            eyebrow="Loved by operators"
-            title={
-              <>
-                The teams behind the{" "}
-                <span className="text-gradient">numbers</span>
-              </>
-            }
-          />
-          <div className="flex gap-2">
-            <IconButton
-              aria-label="Previous testimonial"
-              onClick={() => emblaApi?.scrollPrev()}
-              className="size-11"
-            >
-              <ArrowLeft />
-            </IconButton>
-            <IconButton
-              aria-label="Next testimonial"
-              onClick={() => emblaApi?.scrollNext()}
-              className="size-11"
-            >
-              <ArrowRight />
-            </IconButton>
-          </div>
-        </div>
-
-        <div
-          className="mt-12 overflow-hidden"
-          ref={emblaRef}
-          role="group"
-          aria-roledescription="carousel"
-          aria-label="Customer testimonials"
-        >
-          <div className="flex gap-4">
-            {testimonials.map((testimonial, index) => (
-              <figure
-                key={testimonial.author}
-                role="group"
-                aria-roledescription="slide"
-                aria-label={`${index + 1} of ${testimonials.length}`}
-                className="surface-gradient flex min-w-0 shrink-0 grow-0 basis-[88%] flex-col rounded-2xl border border-border p-7 sm:basis-[46%] lg:basis-[31%]"
+        <div className="grid gap-14 lg:grid-cols-[1.6fr_1fr] lg:gap-20">
+          <figure className="flex flex-col justify-between">
+            <AnimatePresence mode="wait" initial={false}>
+              <m.blockquote
+                key={active.author}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.45, ease: easeOutExpo }}
+                className="font-display max-w-[54ch] text-2xl font-medium leading-[1.25] tracking-[-0.02em] sm:text-3xl"
               >
-                <Quote className="size-7 text-primary/50" aria-hidden />
-                <blockquote className="mt-4 flex-1 text-[0.95rem] leading-relaxed text-foreground">
-                  {testimonial.quote}
-                </blockquote>
-                <figcaption className="mt-6 flex items-center gap-3 border-t border-border pt-5">
-                  <Avatar initials={testimonial.initials} />
-                  <span className="flex flex-col">
-                    <span className="text-sm font-medium">
-                      {testimonial.author}
-                    </span>
-                    <span className="text-xs text-muted">
-                      {testimonial.role}, {testimonial.company}
-                    </span>
-                  </span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
+                {active.quote}
+              </m.blockquote>
+            </AnimatePresence>
 
-        <div
-          className="mt-8 flex justify-center gap-2"
-          aria-label="Testimonial navigation"
-        >
-          {snaps.map((_, index) => (
-            <button
-              key={index}
-              type="button"
-              aria-label={`Go to testimonial ${index + 1}`}
-              aria-current={index === selected ? "true" : undefined}
-              onClick={() => emblaApi?.scrollTo(index)}
-              className="group flex size-6 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            >
-              <span
-                className={cn(
-                  "h-1.5 rounded-full transition-all duration-300",
-                  index === selected
-                    ? "w-6 bg-primary"
-                    : "w-1.5 bg-border-strong group-hover:bg-muted",
-                )}
-              />
-            </button>
-          ))}
+            <figcaption className="mt-12 flex items-center gap-4">
+              <Avatar initials={active.initials} />
+              <span className="flex flex-col">
+                <span className="text-sm font-medium">{active.author}</span>
+                <span className="text-sm text-muted">
+                  {active.role}, {active.company}
+                </span>
+              </span>
+            </figcaption>
+          </figure>
+
+          {/* The company list doubles as the control. Reading the names is the
+              social proof; clicking one swaps the quote. */}
+          <ul className="flex flex-col border-t border-border">
+            {testimonials.map((testimonial, index) => (
+              <li key={testimonial.author}>
+                <button
+                  type="button"
+                  onClick={() => setSelected(index)}
+                  aria-pressed={index === selected}
+                  className={cn(
+                    "group flex w-full items-baseline justify-between gap-4 border-b border-border py-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                    index === selected
+                      ? "text-foreground"
+                      : "text-muted hover:text-foreground",
+                  )}
+                >
+                  <span className="font-display text-lg font-bold tracking-[-0.03em]">
+                    {testimonial.company}
+                  </span>
+                  <span className="text-xs">{testimonial.role}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
       </Container>
     </Section>

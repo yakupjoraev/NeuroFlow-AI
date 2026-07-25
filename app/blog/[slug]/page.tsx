@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 import { Container } from "@/components/common/container";
 import { Reveal } from "@/components/common/reveal";
 import { Badge } from "@/components/ui/badge";
@@ -49,14 +49,14 @@ export default async function BlogPostPage({ params }: PageProps) {
           slug: post.slug,
         })}
       />
-      <article className="pt-36 pb-8 sm:pt-44">
+      <article className="pb-8 pt-24 sm:pt-32">
         <Container className="max-w-3xl">
           <Reveal>
             <Link
               href="/blog"
               className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-foreground"
             >
-              <ArrowLeft className="size-4" />
+              <ArrowLeft weight="bold" className="size-4" />
               Back to blog
             </Link>
           </Reveal>
@@ -64,16 +64,14 @@ export default async function BlogPostPage({ params }: PageProps) {
           <Reveal className="mt-8">
             <div className="flex flex-wrap items-center gap-3">
               <Badge variant="brand">{post.category}</Badge>
-              <span className="font-mono text-xs uppercase tracking-wider text-muted">
+              <span className="label-mono text-muted">
                 {formatDate(post.date)} · {post.readingTime}
               </span>
             </div>
           </Reveal>
 
           <Reveal variant="blur" className="mt-5">
-            <h1 className="text-balance text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
-              {post.title}
-            </h1>
+            <h1 className="display-lg">{post.title}</h1>
           </Reveal>
 
           <Reveal className="mt-6 flex items-center gap-3 border-b border-border pb-8">
@@ -99,8 +97,8 @@ export default async function BlogPostPage({ params }: PageProps) {
             ))}
           </div>
 
-          <div className="mt-14 rounded-2xl border border-border surface-gradient p-8">
-            <h2 className="text-lg font-semibold tracking-tight">
+          <div className="mt-14 border-t border-border pt-10">
+            <h2 className="display-md">
               Get the next one in your inbox
             </h2>
             <p className="mt-1 text-sm text-muted">
